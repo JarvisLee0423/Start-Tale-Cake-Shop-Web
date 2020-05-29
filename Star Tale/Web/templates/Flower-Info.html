@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+    <head>
+        <!-- Set the html character style -->
+        <meta charset = "UTF-8"/>
+        <!-- HTTP equivate -->
+        <meta http-equiv = "X-UA-Compatible" content = "IE=edge"/>
+        <!-- Automatic suitable -->
+        <meta name = "viewport" content = "width=device-width, initial-scale=1"/>
+        <!-- Title of this page -->
+        <title>UIC Star Tale Flower Chmber Flower-Info</title>
+        <!-- Link to the bootstrap css -->
+        <link href = "static/css/bootstrap.min.css" rel = "stylesheet"/>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+                <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <!-- The header -->
+        <div class = "container-fluid">
+            <div class = "row">
+                <!-- The panel for a picture -->
+                <div class = "col-xs-3 col-md-3"  style = "height:150px;">
+                    <img src = "static/bg5.jpg" class = "col-xs-12 col-md-12" height = 150>
+                </div>
+                <!-- The panel for the title -->
+                <div class = "col-xs-6 col-md-6 panel"  style = "height:150px;">
+                    <!-- The panel for logo -->
+                    <div class = "col-xs-6 col-md-3 panel" style = "height:150px;"><br>
+                        <img src = "static/logo.png" class = "col-xs-12 col-md-12">
+                    </div>
+                    <!-- The panel for title -->
+                    <div class = "col-xs-6 col-md-9 panel" style = "height:150px;"><br><br>
+                        <h4 class = "text-center">UIC Star Tale Flower Chamber</h4>
+                        <h4 class = "text-center">______CST product must ba a boutique______</h4>
+                    </div>
+                </div>
+                <!-- The panel for a picture -->
+                <div class = "col-xs-3 col-md-3"  style = "height:150px;">
+                    <img src = "static/bg6.jpg" class = "col-xs-12 col-md-12" height = 150>
+                </div>
+            </div>
+        </div>
+        <!-- The navigation bar -->
+        <header>
+            <nav class = "navbar navbar-default" role = "navigation" style = "background-color:red;">
+                <!-- Create a container fluid for nav -->
+                <div class = "container-fluid">
+                    <!-- Responsive navigation bar -->
+                    <div class = "navbar-header">
+                        <button type = "button" class = "navbar-toggle" data-toggle = "collapse" data-target = "#nav-collapse">
+                            <span class = "sr-only">Toggle navigation</span>
+                            <span class = "icon-bar"></span>
+                            <span class = "icon-bar"></span>
+                            <span class = "icon-bar"></span>
+                        </button>
+                        <!-- The part will always show in navigation bar -->
+                        <a class = "navbar-brand" href = "About Us" style = "color:white;">About Us</a>
+                    </div>
+                    <!-- Collect the nav links, and other content for toggling -->
+                    <div class = "collapse navbar-collapse" id = "nav-collapse">
+                        <ul class = "nav navbar-nav">
+                            <li><a href = "../" style = "color:white;">Homepage</a></li>
+                            <li><a href = "Flower-Info" style = "color:white;">Flower-info</a></li>
+                            <li><a href = "Training" style = "color:white;">Training</a></li>
+                            <li><a href = "Login" style = "color:white;">Log-in</a></li>
+                            <li><a href = "Registration" style = "color:white;">Registration</a></li>
+                            <li><a href = "Cart" style = "color:white;">Cart</a></li>
+                            {% if current_user.is_authenticated and level == 1 %}
+                            <li><a href = "Admin-Info" style = "color:white;">{{ current_user.username }}</a></li>
+                            {% endif %}
+                            {% if current_user.is_authenticated and level == 0 %}
+                            <li><a href = "User-Info" style = "color:white;">{{ current_user.username }}</a></li>
+                            {% endif %}
+                            {% if not current_user.is_authenticated %}
+                            <li><a href = "User-Info" style = "color:white;">Visitor</a></li>
+                            {% endif %}
+                            <li><a href = "Join Us" style = "color:white;">Join Us</a></li>
+                            <li><a href = "Logout" style = "color:white;">Logout</a></li>
+                        </ul>
+                        <!-- Searing flower part -->
+                        <form class = "navbar-form navbar-right" role = "search" action = "/Flower-Details" method = "POST">
+                            <div class = "form-group">
+                                <div class = "btn-group">
+                                    <button type = "submit" class = "btn btn-default" name = "search" style = "height:30px;"><span class = "glyphicon glyphicon-search"></span></button>
+                                    <input type = "text" class = "from-control" placeholder = "Searching Flower" name = "flower" style = "height:30px;" value = "">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- The Flower-Info page -->
+        <div class = "container-fluid" style = "background-image:url('static/bg1.jpg')">
+            <div class = "row">
+                <div class = "col-xs-12 col-md-12"><br><br><br><br>
+                    <div class = "row">
+                        <span class = "col-xs-1 col-md-1"></span>
+                        <div class = "col-xs-10 col-md-6">
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[0][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[0][0] }}"><img src = "{{ admin[0][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[0][1] and admin[0][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[0][1] }}  ￥{{ admin[0][4] }}</p>
+                                {% endif %}
+                                {% if admin[0][0] and admin[0][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[0][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[1][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[1][0] }}"><img src = "{{ admin[1][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[1][1] and admin[1][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[1][1] }}  ￥{{ admin[1][4] }}</p>
+                                {% endif %}
+                                {% if admin[1][0] and admin[1][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[1][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[2][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[2][0] }}"><img src = "{{ admin[2][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[2][1] and admin[2][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[2][1] }}  ￥{{ admin[2][4] }}</p>
+                                {% endif %}
+                                {% if admin[2][0] and admin[2][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[2][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class = "row">
+                        <span class = "col-xs-1 col-md-1"></span>
+                        <div class = "col-xs-10 col-md-6">
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[3][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[3][0] }}"><img src = "{{ admin[3][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[3][1] and admin[3][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[3][1] }}  ￥{{ admin[3][4] }}</p>
+                                {% endif %}
+                                {% if admin[3][0] and admin[3][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[3][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[4][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[4][0] }}"><img src = "{{ admin[4][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[4][1] and admin[4][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[4][1] }}  ￥{{ admin[4][4] }}</p>
+                                {% endif %}
+                                {% if admin[4][0] and admin[4][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[4][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[5][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[5][0] }}"><img src = "{{ admin[5][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[5][1] and admin[5][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[5][1] }}  ￥{{ admin[5][4] }}</p>
+                                {% endif %}
+                                {% if admin[5][0] and admin[5][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[5][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class = "row">
+                        <span class = "col-xs-1 col-md-1"></span>
+                        <div class = "col-xs-10 col-md-6">
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[6][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[6][0] }}"><img src = "{{ admin[6][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[6][1] and admin[6][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[6][1] }}  ￥{{ admin[6][4] }}</p>
+                                {% endif %}
+                                {% if admin[6][0] and admin[6][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[6][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[7][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[7][0] }}"><img src = "{{ admin[7][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[7][1] and admin[7][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[7][1] }}  ￥{{ admin[7][4] }}</p>
+                                {% endif %}
+                                {% if admin[7][0] and admin[7][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[7][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[8][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[8][0] }}"><img src = "{{ admin[8][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[8][1] and admin[8][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[8][1] }}  ￥{{ admin[8][4] }}</p>
+                                {% endif %}
+                                {% if admin[8][0] and admin[8][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[8][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class = "row">
+                        <span class = "col-xs-1 col-md-1"></span>
+                        <div class = "col-xs-10 col-md-6">
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[9][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[9][0] }}"><img src = "{{ admin[9][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[9][1] and admin[9][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[9][1] }}  ￥{{ admin[9][4] }}</p>
+                                {% endif %}
+                                {% if admin[9][0] and admin[9][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[9][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[10][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[10][0] }}"><img src = "{{ admin[10][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[10][1] and admin[10][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[10][1] }}  ￥{{ admin[10][4] }}</p>
+                                {% endif %}
+                                {% if admin[10][0] and admin[10][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[10][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                            <div class = "col-xs-4 col-md-4 text-center">
+                                {% if admin[11][5] %}
+                                <form action = "/Flower-Details" method = "POST">
+                                    <button type = "submit" name = "GetInfo" value = "{{ admin[11][0] }}"><img src = "{{ admin[11][5] }}" width = 100 height = 150></button>
+                                </form>
+                                {% endif %}
+                                {% if admin[11][1] and admin[11][4] %}
+                                <p style = "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ admin[11][1] }}  ￥{{ admin[11][4] }}</p>
+                                {% endif %}
+                                {% if admin[11][0] and admin[11][1] %}
+                                <form action = "/Get Order" method = "POST">
+                                    <button type = "submit" class = "btn btn-danger" name = "UniqueOrder" value = "{{ admin[11][0] }}">Order</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div><br><br>
+                </div>
+            </div>
+        </div><br>
+        <!-- The footer -->
+        <div class = "container-fluid">
+            <div class = "row">
+                <div class = "col-xs-12 col-md-12 panel panel-default" style = "border-style:solid; border-color:green; border-left:none; border-right:none;"><br>
+                    <div class = "col-xs-4 col-md-4">
+                        <div class = "col-xs-8 col-md-4"><br>
+                            <img src = "static/logo.png" class = "col-xs-12 col-md-12">
+                        </div>
+                        <div class = "col-xs-8 col-md-8">
+                            <br>
+                            <h3>SERVICE CENTER</h3>
+                        </div>
+                    </div>
+                    <div class = "col-xs-3 col-md-3 panel panel-default" style = "border-top:none; border-bottom:none;">
+                        <h3 class = "text-center">SERVICE CENTER</h3>
+                        <h3 class = "text-center">8:30 -- 24:00</h3>
+                    </div>
+                    <div class = "col-xs-5 col-md-5"><br>
+                        <div class = "col-md-4">
+                            <h3>Contact</h3>
+                        </div>
+                        <div class = "col-xs-8 col-md-8">
+                            <div class = "row">
+                                <div class = "col-xs-4 col-md-4">
+                                    <a href = "mailto:m730026042@mail.uic.edu.hk" class = "text-center" style = "color:black; font-size:18px;"><span class = "glyphicon glyphicon-comment"></span> Jarvis</a>
+                                </div>
+                                <div class = " col-xs-4 col-md-4">
+                                    <a href = "mailto:m730026116@mail.uic.edu.hk" class = "text-center" style = "color:black; font-size:18px;"><span class = "glyphicon glyphicon-comment"></span> Shawn</a>
+                                </div>
+                                <div class = "col-xs-4 col-md-4">
+                                    <a href = "mailto:m730026092@mail.uic.edu.hk" class = "text-center" style = "color:black; font-size:18px;"><span class = "glyphicon glyphicon-comment"></span> George</a>
+                                </div>
+                            </div><br>
+                            <div class = "row">
+                                <div class = "col-xs-4 col-md-4">
+                                    <a href = "mailto:m730026085@mail.uic.edu.hk" class = "text-center" style = "color:black; font-size:18px;"><span class = "glyphicon glyphicon-comment"></span> Oscar</a>
+                                </div>
+                                <div class = "col-xs-4 col-md-4">
+                                    <a href = "mailto:m730026042@mail.uic.edu.hk" class = "text-center" style = "color:black; font-size:18px;"><span class = "glyphicon glyphicon-comment"></span> Flower</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="static/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/bootstrap.min.js"></script>
+</html>
